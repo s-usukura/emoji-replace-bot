@@ -2,7 +2,7 @@ const MAX_LENGTH = 1024;
 
 type EmojiDict = Record<string, string[]>;
 
-function pickup_random(arr: any[]): any {
+function pickup_random<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -35,7 +35,7 @@ function to_emoji(inputText: string): string {
     for (let j = 0; j < i; j++) {
       const q = hiraToKana(inputText.slice(j, i));
       if (!(q in emojiDict)) continue;
-      const text = dp[j].text + pickup_random(emojiDict[q]);
+      const text = dp[j].text + pickup_random<string>(emojiDict[q]);
       const c_emoji = dp[j].c_emoji + 1;
       const c_not_emoji = dp[j].c_not_emoji;
       if (score(dp[i]) < score({ text, c_emoji, c_not_emoji })) {
